@@ -4,6 +4,18 @@ This application was generated using JHipster 7.1.0, you can find documentation 
 
 ## Kafka Configuration
 
+### Running Kafka
+
+```shell
+docker-compose -f src/main/docker/kafka.yml up -d
+```
+
+#### Then run kafka exec by docker image
+
+```shell
+docker exec -it docker_kafka_1 bash
+```
+
 ### Kafka Topic Create
 
 ```shell
@@ -20,6 +32,32 @@ kafka-topics --describe --topic jkfk-1-topic --bootstrap-server localhost:9092
 
 ```shell
 kafka-console-consumer --topic jkfk-1-topic --from-beginning --bootstrap-server localhost:9092
+```
+
+### Listing Topics
+
+```shell
+kafka-topics --list --zookeeper zookeeper:2181
+or
+kafka-topics --bootstrap-server=localhost:9092 --list
+```
+
+```text
+run java app-> $ ./mvnw
+```
+
+## Pub-Sub Kafka
+
+### Publish Kafka by Java API
+
+Authorization is your token
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8080/api/jkfk-kafka/publish/jkfk-1-topic?message=test-message&key=test-message' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYyNjI1NzYyOX0.S77IXWzmQ3nols5ysZvyAzm-vtehdQYpZqPMRYw4JhLlI-6NYcDMi8xdI4k1weaPN0LXKb_1gxsYhqMWOC6I7Q' \
+  -d ''
 ```
 
 ## Development
